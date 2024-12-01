@@ -1,5 +1,3 @@
-let input = "day01_input.txt"
-
 let calculate_distance list_a list_b =
   List.fold_left2 (fun acc a b -> acc + abs(a - b)) 0 list_a list_b
 
@@ -49,7 +47,11 @@ let parse_input input =
     raise e
 
 let () =
-  let list_a, list_b = parse_input input in
-  let total_distance = calculate_total_distance_between_lists list_a list_b in
-  let similarity_score = calculate_similarity_score list_a list_b in
-  Printf.printf "%d\n%d\n" total_distance similarity_score
+  if Array.length Sys.argv != 2 then
+    raise (Invalid_argument "Puzzle input file required.")
+  else
+    let input_file = Sys.argv.(1) in
+    let list_a, list_b = parse_input input_file in
+    let total_distance = calculate_total_distance_between_lists list_a list_b in
+    let similarity_score = calculate_similarity_score list_a list_b in
+    Printf.printf "%d\n%d\n" total_distance similarity_score
